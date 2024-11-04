@@ -115,4 +115,9 @@ function addFittedSVGs() {
     lineChartSVG.append("g")
         .attr("id", "overlay")
         .append("line");
+
+    // Append the button at the end of the content div
+    contentDiv.append("button")
+        .attr("id", "clear-button")
+        .text("Clear Selected States");
 }
