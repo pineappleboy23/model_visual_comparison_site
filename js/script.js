@@ -64,7 +64,7 @@ loadData().then((loadedData) => {
 function addFittedSVGs() {
     //--------------------------
     // do screen size math
-    const MAP_WIDTH_TO_HEIGHT_RATIO = 2.75;
+    const MAP_WIDTH_TO_HEIGHT_RATIO = 2;
     const GRADIENT_WIDTH_RATIO = .1;
     const PADDING_PERCENT = .05; //percent of screen space on either side of each map
 
@@ -76,6 +76,10 @@ function addFittedSVGs() {
     globalApplicationState.padding = Math.round((screenWidth / 2) * PADDING_PERCENT);
                                    // half of width minus padding
     globalApplicationState.svgWidth = Math.round(screenWidth / 2 - globalApplicationState.padding * 2);
+
+    //trim width so they end up on the same row
+    globalApplicationState.svgWidth = globalApplicationState.svgWidth - 10
+
                                         // width divided by ratio
     globalApplicationState.svgHeight = Math.round(globalApplicationState.svgWidth / MAP_WIDTH_TO_HEIGHT_RATIO);
                                               // width * gradient ratio
