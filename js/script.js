@@ -38,9 +38,11 @@ loadData().then((loadedData) => {
     globalApplicationState.mapData = loadedData.mapData;
 
     // make all data numerical
+    /*
     globalApplicationState.colonyData.forEach(d => {
         d.x = +d.x; // convert to number
     });
+    */
 
 
     // init line chart and add it to global state 
@@ -64,20 +66,20 @@ function addFittedSVGs() {
     // do screen size math
     const MAP_WIDTH_TO_HEIGHT_RATIO = 2.75;
     const GRADIENT_WIDTH_RATIO = .1;
-    const PADDING_PERCENT = .5; //percent of screen space on either side of each map
+    const PADDING_PERCENT = .05; //percent of screen space on either side of each map
 
     // get screen width
     let screenWidth = window.innerWidth;
 
     // make each piece proportionally sized
     //                                PADDING_PERCENT of one display
-    globalApplicationState.padding = (screenWidth / 2) * PADDING_PERCENT;
+    globalApplicationState.padding = Math.round((screenWidth / 2) * PADDING_PERCENT);
                                    // half of width minus padding
-    globalApplicationState.svgWidth = screenWidth / 2 - globalApplicationState.padding * 2;
+    globalApplicationState.svgWidth = Math.round(screenWidth / 2 - globalApplicationState.padding * 2);
                                         // width divided by ratio
-    globalApplicationState.svgHeight = globalApplicationState.svgWidth / MAP_WIDTH_TO_HEIGHT_RATIO;
+    globalApplicationState.svgHeight = Math.round(globalApplicationState.svgWidth / MAP_WIDTH_TO_HEIGHT_RATIO);
                                               // width * gradient ratio
-    globalApplicationState.gradientWidth = globalApplicationState.svgWidth * GRADIENT_WIDTH_RATIO;
+    globalApplicationState.gradientWidth = Math.round(globalApplicationState.svgWidth * GRADIENT_WIDTH_RATIO);
 
     //---------------------------------
     //add html content
