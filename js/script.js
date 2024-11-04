@@ -1,9 +1,8 @@
 // ******* DATA LOADING *******
 async function loadData() {
-    const colonyData = await d3.csv('https://raw.githubusercontent.com/pineappleboy23/DS_data/refs/heads/main/colonies_df.csv');
-    const varroaData = await d3.csv('https://raw.githubusercontent.com/pineappleboy23/DS_data/refs/heads/main/varroa_df.csv');
+    const beeData = await d3.csv('https://raw.githubusercontent.com/pineappleboy23/DS_data/refs/heads/main/merged_df.csv');
     const mapData = await d3.csv('https://cdn.jsdelivr.net/npm/us-atlas@3/states-albers-10m.json');
-    return { colonyData, varroaData, mapData };
+    return { beeData, mapData };
 }
 
 
@@ -12,8 +11,7 @@ async function loadData() {
 const globalApplicationState = {
     selectedLocations: [],
 
-    colonyData: null,
-    varroaData: null,
+    beeData: null,
     mapData: null,
 
     usMap: null,
@@ -25,8 +23,7 @@ const globalApplicationState = {
 loadData().then((loadedData) => {
 
     // Store the loaded data into the globalApplicationState
-    globalApplicationState.colonyData = loadedData.colonyData;
-    globalApplicationState.varroaData = loadedData.varroaData;
+    globalApplicationState.beeData = loadedData.beeData;
     globalApplicationState.mapData = loadedData.mapData;
 
     // make all data numerical
