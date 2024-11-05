@@ -152,6 +152,9 @@ function addFittedSVGs() {
         .attr("id", "overlay")
         .append("line");
 
+    // new line for selectors
+    contentDiv.append("br");
+
     // Append the button at the end of the content div
     contentDiv.append("button")
         .attr("id", "clear-button")
