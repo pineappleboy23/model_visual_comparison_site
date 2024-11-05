@@ -3,7 +3,25 @@ async function loadData() {
     // map data source
     // https://github.com/topojson/us-atlas?tab=readme-ov-file
     const beeData = await d3.csv('https://raw.githubusercontent.com/pineappleboy23/DS_data/refs/heads/main/merged_df.csv');
-    const mapData = await d3.csv('https://cdn.jsdelivr.net/npm/us-atlas@3/states-albers-10m.json');
+
+    // Date column to date
+    beeData.forEach(d => {
+        if (d["Date"]) {
+            d.date = d["Date"];
+            delete d["Date"];
+        }
+        // replace spaces with underscores
+        for (let key in d) {
+            const newKey = key.replace(/ /g, "_"); // replace spaces with underscores
+            if (newKey !== key) {
+                d[newKey] = d[key];
+                delete d[key];
+            }
+        }
+    });
+
+    const mapData = await d3.json('js/data/us-states.json');
+
     return { beeData, mapData };
 }
 
@@ -23,7 +41,9 @@ const globalApplicationState = {
     svgWidth: null,
     svgHeight: null,
     gradientWidth: null,
-    padding: null
+    padding: null,
+
+    yData: "Starting_Colonies"
 };
 
 //******* SET UP FITTED HTML ITEMS *******
@@ -37,13 +57,28 @@ loadData().then((loadedData) => {
     globalApplicationState.beeData = loadedData.beeData;
     globalApplicationState.mapData = loadedData.mapData;
 
+    //-----------------------
     // make all data numerical
-    /*
-    globalApplicationState.colonyData.forEach(d => {
-        d.x = +d.x; // convert to number
-    });
-    */
 
+    // columns to not convert to numeric
+    const excludedColumns = ['date', 'State']; 
+    const columnNames = Object.keys(globalApplicationState.beeData[0]);
+
+    // convert all other columns to numeric
+    globalApplicationState.beeData.forEach(d => {
+        columnNames.forEach(col => {
+            // check if the column is not in the excluded list
+            if (!excludedColumns.includes(col) && d[col]) {
+                d[col] = +d[col]; // convert to numeric
+            }
+        });
+    });
+
+    console.log(globalApplicationState.beeData)
+    console.log(globalApplicationState.mapData)
+
+    //----------------------------
+    //vis setup
 
     // init line chart and add it to global state 
     const lineChart = new LineChart(globalApplicationState);
@@ -64,26 +99,23 @@ loadData().then((loadedData) => {
 function addFittedSVGs() {
     //--------------------------
     // do screen size math
-    const MAP_WIDTH_TO_HEIGHT_RATIO = 2;
+    const MAP_WIDTH_TO_HEIGHT_RATIO = 1.75;
     const GRADIENT_WIDTH_RATIO = .1;
-    const PADDING_PERCENT = .05; //percent of screen space on either side of each map
+    const PADDING_PERCENT = .07; //percent of screen space on top and bottom and 2x on the left
 
     // get screen width
-    let screenWidth = window.innerWidth;
+    let screenWidth = window.innerWidth * .9;
 
     // make each piece proportionally sized
     //                                PADDING_PERCENT of one display
-    globalApplicationState.padding = Math.round((screenWidth / 2) * PADDING_PERCENT);
-                                   // half of width minus padding
-    globalApplicationState.svgWidth = Math.round(screenWidth / 2 - globalApplicationState.padding * 2);
+    globalApplicationState.padding = Math.floor((screenWidth / 2) * PADDING_PERCENT);
+    // half of width minus padding
+    globalApplicationState.svgWidth = Math.floor(screenWidth / 2 - globalApplicationState.padding * 2);
 
-    //trim width so they end up on the same row
-    globalApplicationState.svgWidth = globalApplicationState.svgWidth - 10
-
-                                        // width divided by ratio
-    globalApplicationState.svgHeight = Math.round(globalApplicationState.svgWidth / MAP_WIDTH_TO_HEIGHT_RATIO);
-                                              // width * gradient ratio
-    globalApplicationState.gradientWidth = Math.round(globalApplicationState.svgWidth * GRADIENT_WIDTH_RATIO);
+    // width divided by ratio
+    globalApplicationState.svgHeight = Math.floor(globalApplicationState.svgWidth / MAP_WIDTH_TO_HEIGHT_RATIO);
+    // width * gradient ratio
+    globalApplicationState.gradientWidth = Math.floor(globalApplicationState.svgWidth * GRADIENT_WIDTH_RATIO);
 
     //---------------------------------
     //add html content
@@ -107,7 +139,7 @@ function addFittedSVGs() {
     // Append the line-chart SVG element
     const lineChartSVG = contentDiv.append("svg")
         .attr("id", "line-chart")
-        .attr("width", width)
+        .attr("width", width + 10)
         .attr("height", height);
 
     // Add g elements inside line-chart SVG
