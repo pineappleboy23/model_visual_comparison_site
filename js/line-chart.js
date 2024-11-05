@@ -45,7 +45,7 @@ class LineChart {
             let date = this.xscale.invert(mouseX);
 
             this.displayData = [];
-            this.groups.values().forEach((group) => {
+            Array.from(this.groups.values()).forEach((group) => {
 
                 let entry = this.findClosestEntry(group, date);
 
@@ -151,12 +151,12 @@ class LineChart {
         // define a color scale 
         this.colorScale = d3.scaleOrdinal()
             //scale maps from iso_code to a color
-            .domain(this.groups.entries().map(group => group.value))
+            .domain(Array.from(this.groups.entries()).map(group => group.value))
             .range(d3.schemeCategory10); // built-in D3 color scheme 
 
 
         // draw each line
-        this.groups.values().forEach(group => {
+        Array.from(this.groups.values()).forEach(group => {
             this.drawLineForGroup(group);
         });
     }
