@@ -227,11 +227,13 @@ class MapVis {
             .attr("y", this.globalApplicationState.svgHeight - 13)
             .attr("id", "right")
             .attr("text-anchor", "middle")
-            .text(Math.floor(this.maxAverage))
+            .text(Math.floor(this.maxAverage).toLocaleString())
             .attr("font-size", "12px")
             .attr("fill", "black");
 
     }
+
+
 
 
 }
