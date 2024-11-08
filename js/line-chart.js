@@ -115,7 +115,7 @@ class LineChart {
             .append("text")
             .attr("x", x + 10) // X position
             .attr("y", (d, i) => 20 + i * 15) // Y position, stacking with an offset
-            .text(d => d.State + ", " + d[this.yType])
+            .text(d => d.State + ", " + d[this.yType].toLocaleString())
             .attr("font-size", "12px")
             .attr("fill", d => this.colorScale(d.State)) // use color scale
             .attr("text-anchor", ogx > this.width * .66 ? "end" : "start");

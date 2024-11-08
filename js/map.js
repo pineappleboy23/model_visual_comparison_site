@@ -144,23 +144,6 @@ class MapVis {
 
     drawMap() {
 
-        /*
-        // Create a graticule generator
-        const stateOutlineGen = d3.geoGraticule();
-
-        // graticule outline
-        d3.select("#states %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-            .selectAll("path")
-            .data(this.geoJSON.features)
-            .join("path")
-            .attr("d", this.path);
-            .attr("class", "graticule")
-            .style("fill", "none")
-            .style("stroke", "black")
-            .style("stroke-width", 0.5);
-
-        */
-
         // draw state data
         d3.select("#states").selectAll("path")
             .data(this.geoJSON.features)
