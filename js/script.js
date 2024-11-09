@@ -198,7 +198,7 @@ function addDropDownBox() {
         // add functionality to change data used by graph and map
         .on("change", (d) => {
             // when new option selected change data type
-            globalApplicationState.yData = d3.select("#data-select").value;
+            globalApplicationState.yData = d3.select("#data-select").property("value");
             // and update graphs
             globalApplicationState.usMap.updateDataType();
         })
@@ -213,12 +213,12 @@ function addDropDownBox() {
         .text(function (d) {
         return dataMaping[d];
         })
-        // set up value to be the key of dataMaping
+        // set up select box value to be the key of dataMaping
         .attr("value", function (d) {
             return d;
         });
 
     // init global with value to match slection
-    globalApplicationState.yData = d3.select("#data-select").value;
+    globalApplicationState.yData = d3.select("#data-select").property("value");
 
 }

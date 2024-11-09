@@ -230,13 +230,7 @@ class LineChart {
         // Define the line generator function
         let lineGenerator = d3.line()
             .x(d => this.xscale(new Date(d.date)))
-            .y(d => {
-                console.log(d);
-                console.log(d[this.yType]);
-                console.log(this.yType);
-                return this.yscale(d[this.yType]);
-            }
-            );
+            .y(d => this.yscale(d[this.yType]));
 
 
         let lineGroup = d3.select("#lines").append("g");
