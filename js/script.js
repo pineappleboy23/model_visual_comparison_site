@@ -28,9 +28,6 @@ async function loadData() {
         }
     });
 
-    console.log(Object.keys(beeData[0]))
-    console.log(1)
-
     const mapData = await d3.json('js/data/us-states.json');
 
     return { beeData, mapData };
@@ -72,7 +69,7 @@ loadData().then((loadedData) => {
     // make all data numerical
 
     // columns to not convert to numeric
-    const excludedColumns = ['date', 'State']; 
+    const excludedColumns = ['date', 'State'];
     const columnNames = Object.keys(globalApplicationState.beeData[0]);
 
     // convert all other columns to numeric
@@ -170,4 +167,57 @@ function addFittedSVGs() {
     contentDiv.append("button")
         .attr("id", "clear-button")
         .text("Clear Selected States");
+
+    addDropDownBox();
+}
+
+function addDropDownBox() {
+    // data to bind to drop down selection
+    const dataMaping = {
+        Diseases: 'Diseases',
+        Pesticides: 'Pesticides',
+        Other: 'Other',
+        Unknown: 'Unknown',
+        Varroa_mites: 'Varroa mites',
+        Other_pests_and_parasites: 'Other pests and parasites',
+        Starting_Colonies: 'Starting Colonies',
+        Max_Colonies: 'Max Colonies',
+        Lost_colonies: 'Lost colonies',
+        Percent_Lost: 'Percent Lost',
+        Added_colonies: 'Added colonies',
+        Renovated_colonies: 'Renovated colonies',
+        Percent_renovated: 'Percent renovated'
+    }
+
+    // create drop down
+    const dropDown = d3.select("#content")
+        .append("select")
+        .attr("name", "select name")
+        .attr("id", "data-select")
+        // add functionality to change data used by graph and map
+        .on("change", (d) => {
+            // when new option selected change data type
+            globalApplicationState.yData = d3.select("#data-select").value;
+            // and update graphs
+            globalApplicationState.usMap.updateDataType();
+        })
+
+    // bind data and set value and text functions
+    var options = dropDown.selectAll("myOptions")
+        .data(Object.keys(dataMaping))
+        .enter()
+        .append("option")
+        // set up option text
+        // text is the value of dataMaping
+        .text(function (d) {
+        return dataMaping[d];
+        })
+        // set up value to be the key of dataMaping
+        .attr("value", function (d) {
+            return d;
+        });
+
+    // init global with value to match slection
+    globalApplicationState.yData = d3.select("#data-select").value;
+
 }
