@@ -111,6 +111,8 @@ function addFittedSVGs() {
     const GRADIENT_WIDTH_RATIO = .1;
     const PADDING_PERCENT = .07; //percent of screen space on top and bottom and 2x on the left
 
+    const TITLE_HEIGHT_RATIO = .25;
+
     // get screen width
     let screenWidth = window.innerWidth * .9;
 
@@ -133,6 +135,46 @@ function addFittedSVGs() {
 
     // Select the content div
     const contentDiv = d3.select("#content");
+
+    //--------------------
+    // add titles
+
+    // Append the map title SVG element
+    const mapTitleSVG = contentDiv.append("svg")
+        .attr("id", "map-title")
+        .attr("width", width)
+        .attr("height", height * TITLE_HEIGHT_RATIO);
+
+    //add text
+    mapTitleSVG.append("text")
+        .text("Average Value For States")
+        .attr("x", (width) / 2)
+        .attr("y", (height * TITLE_HEIGHT_RATIO) / 2)
+        .attr("text-anchor", "middle")
+        .attr("font-size", Math.floor((height * TITLE_HEIGHT_RATIO) * .4) + "px") // font size is 40% of the svg height
+        .attr("fill", "black")
+        .attr("x", (width) / 2) // position is in the middle cause we center the text
+        .attr("y", (height * TITLE_HEIGHT_RATIO) / (10/9)) // dividing by 10/9 starts the text 90% down
+
+
+    // Append the line-chart title SVG element
+    const lineChartTitleSVG = contentDiv.append("svg")
+        .attr("id", "line-chart-title")
+        .attr("width", width + 10)
+        .attr("height", height * TITLE_HEIGHT_RATIO)
+
+    //add text
+    lineChartTitleSVG.append("text")
+        .attr("id", "line-title-text")
+        .text("State Data Over Time")
+        .attr("text-anchor", "middle")
+        .attr("font-size", Math.floor((height * TITLE_HEIGHT_RATIO) * .4)+"px") // font size is 40% of the svg height
+        .attr("fill", "black")
+        .attr("x", (width + 10) / 2) // position is in the middle cause we center the text
+        .attr("y", (height * TITLE_HEIGHT_RATIO)/(10/9)) // dividing by 10/9 starts the text 90% down
+
+    //--------------------
+    // add map and graph svgs and subsequent groups
 
     // Append the map SVG element
     const mapSVG = contentDiv.append("svg")
@@ -161,6 +203,9 @@ function addFittedSVGs() {
         .attr("id", "overlay")
         .append("line");
 
+    //--------------------
+    // add selectors
+
     // new line for selectors
     contentDiv.append("br");
 
@@ -179,15 +224,15 @@ function addDropDownBox() {
         Pesticides: 'Pesticides %',
         Other: 'Other %',
         Unknown: 'Unknown %',
-        Varroa_mites: 'Varroa mites %',
-        Other_pests_and_parasites: 'Other pests and parasites %',
+        Varroa_mites: 'Varroa Mites %',
+        Other_pests_and_parasites: 'Other Pests and Parasites %',
         Starting_Colonies: 'Starting Colonies',
         Max_Colonies: 'Max Colonies',
-        Lost_colonies: 'Lost colonies',
-        Percent_Lost: 'Percent Lost %',
-        Added_colonies: 'Added colonies',
-        Renovated_colonies: 'Renovated colonies',
-        Percent_renovated: 'Percent renovated %'
+        Lost_colonies: 'Lost Colonies',
+        Percent_Lost: 'Lost Colonies %',
+        Added_colonies: 'Added Colonies',
+        Renovated_colonies: 'Renovated Colonies',
+        Percent_renovated: 'Percent Renovated %'
     }
 
     // create drop down
@@ -198,9 +243,14 @@ function addDropDownBox() {
         // add functionality to change data used by graph and map
         .on("change", (d) => {
             // when new option selected change data type
-            globalApplicationState.yData = d3.select("#data-select").property("value");
+            let value = d3.select("#data-select").property("value");
+            globalApplicationState.yData = value;
             // and update graphs
             globalApplicationState.usMap.updateDataType();
+
+            // update graph title
+            d3.select("#line-title-text")
+                .text(dataMaping[value])
         })
 
     // bind data and set value and text functions
