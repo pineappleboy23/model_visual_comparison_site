@@ -123,8 +123,9 @@ class LineChart {
     }
 
 
-    updateSelectedStates() 
-
+    updateSelectedStates() {
+        //update yType
+        this.yType = this.globalApplicationState.yData;
 
         // if no selected States, draw US data
         if (this.globalApplicationState.selectedLocations.length === 0) {
