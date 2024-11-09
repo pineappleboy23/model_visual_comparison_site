@@ -111,7 +111,7 @@ function addFittedSVGs() {
     const GRADIENT_WIDTH_RATIO = .1;
     const PADDING_PERCENT = .07; //percent of screen space on top and bottom and 2x on the left
 
-    const TITLE_HEIGHT_RATIO = .25;
+    const TITLE_HEIGHT_RATIO = .25*.4;
 
     // get screen width
     let screenWidth = window.innerWidth * .9;
@@ -151,10 +151,10 @@ function addFittedSVGs() {
         .attr("x", (width) / 2)
         .attr("y", (height * TITLE_HEIGHT_RATIO) / 2)
         .attr("text-anchor", "middle")
-        .attr("font-size", Math.floor((height * TITLE_HEIGHT_RATIO) * .4) + "px") // font size is 40% of the svg height
+        .attr("font-size", Math.floor((height * TITLE_HEIGHT_RATIO) *.85) + "px")
         .attr("fill", "black")
         .attr("x", (width) / 2) // position is in the middle cause we center the text
-        .attr("y", (height * TITLE_HEIGHT_RATIO) / (10/9)) // dividing by 10/9 starts the text 90% down
+        .attr("y", (height * TITLE_HEIGHT_RATIO) / (6/5)) // dividing by 10/9 starts the text 90% down
 
 
     // Append the line-chart title SVG element
@@ -168,10 +168,10 @@ function addFittedSVGs() {
         .attr("id", "line-title-text")
         .text("State Data Over Time")
         .attr("text-anchor", "middle")
-        .attr("font-size", Math.floor((height * TITLE_HEIGHT_RATIO) * .4)+"px") // font size is 40% of the svg height
+        .attr("font-size", Math.floor((height * TITLE_HEIGHT_RATIO) * .85)+"px") 
         .attr("fill", "black")
         .attr("x", (width + 10) / 2) // position is in the middle cause we center the text
-        .attr("y", (height * TITLE_HEIGHT_RATIO)/(10/9)) // dividing by 10/9 starts the text 90% down
+        .attr("y", (height * TITLE_HEIGHT_RATIO)/(6/5)) // dividing by 10/9 starts the text 90% down
 
     //--------------------
     // add map and graph svgs and subsequent groups
