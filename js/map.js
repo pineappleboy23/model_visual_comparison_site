@@ -154,7 +154,13 @@ class MapVis {
                 // if in selectedLocations -> class is selected
                 return this.globalApplicationState.selectedLocations.includes(d.properties.name) ? "state selected" : "state";
             })
-            .attr("d", d =>  this.path(d.geometry))
+            // changed this to not draw alaska
+            .attr("d", d => {
+                if (d.properties.name === "Alaska") {
+                    return;
+                }
+                return this.path(d.geometry);
+            })
             //map the data value to a color
             .style("fill", d => this.color(d.properties.data))
             // click event listener
