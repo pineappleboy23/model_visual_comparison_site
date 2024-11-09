@@ -209,21 +209,24 @@ class MapVis {
             .attr("stroke-width", 1) // outline width
             .style("fill", "url(#gradient)");  // use the gradient fill
 
+        let fontSize = Math.floor((this.height) * .02 + 6);
+
         svg.append("text")
             .attr("x", this.globalApplicationState.padding)
             .attr("id", "left")
-            .attr("y", this.globalApplicationState.svgHeight - 13)
+            .attr("y", this.globalApplicationState.svgHeight - fontSize/3)
             .text("0")
-            .attr("font-size", "12px")
-            .attr("fill", "black");
+            .attr("font-size", fontSize + "px")
+            .attr("fill", "black")
+            .attr("text-anchor", "middle")
 
         svg.append("text")
             .attr("x", globalApplicationState.gradientWidth + this.globalApplicationState.padding)
-            .attr("y", this.globalApplicationState.svgHeight - 13)
+            .attr("y", this.globalApplicationState.svgHeight - fontSize / 3)
             .attr("id", "right")
             .attr("text-anchor", "middle")
             .text(Math.floor(this.maxAverage).toLocaleString())
-            .attr("font-size", "12px")
+            .attr("font-size", fontSize + "px")
             .attr("fill", "black");
 
     }

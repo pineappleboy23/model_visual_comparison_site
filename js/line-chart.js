@@ -221,8 +221,6 @@ class LineChart {
             .attr("transform", "rotate(-20)") // rotate labels 
             .style("text-anchor", "end") // end of text is attached to point
             .attr("font-size", Math.floor((this.height) * .02 + 5) + "px")  // scale font size
-
-
     }
 
     /**

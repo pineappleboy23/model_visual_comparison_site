@@ -180,7 +180,7 @@ function addFittedSVGs() {
     const mapSVG = contentDiv.append("svg")
         .attr("id", "map")
         .attr("width", width)
-        .attr("height", height + globalApplicationState.padding * 2);
+        .attr("height", height + globalApplicationState.padding);
 
     // Add g elements inside map SVG
     mapSVG.append("g").attr("id", "country-outline");
@@ -191,7 +191,7 @@ function addFittedSVGs() {
     const lineChartSVG = contentDiv.append("svg")
         .attr("id", "line-chart")
         .attr("width", width + 10)
-        .attr("height", height + globalApplicationState.padding * 2);
+        .attr("height", height + globalApplicationState.padding);
 
     // Add g elements inside line-chart SVG
     lineChartSVG.append("g").attr("id", "x-axis");
