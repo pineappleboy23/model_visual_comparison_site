@@ -146,19 +146,19 @@ class MapVis {
         // delete old stuff
         d3.select("#states").selectAll("*").remove();
 
+        // filter for alaska first
+        // it had no data and got in the way of the legend
+        let noAlaska = this.geoJSON.features.filter(d => d.properties.name !== "Alaska");
+
         // draw state data
         d3.select("#states").selectAll("path")
-            .data(this.geoJSON.features)
+            .data(noAlaska)
             .join("path")
             .attr("class", d => {
                 // if in selectedLocations -> class is selected
                 return this.globalApplicationState.selectedLocations.includes(d.properties.name) ? "state selected" : "state";
             })
-            // changed this to not draw alaska
             .attr("d", d => {
-                if (d.properties.name === "Alaska") {
-                    return;
-                }
                 return this.path(d.geometry);
             })
             //map the data value to a color
