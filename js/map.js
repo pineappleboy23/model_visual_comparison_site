@@ -149,13 +149,12 @@ class MapVis {
         // filter for alaska first
         // it had no data and got in the way of the legend
         // also removed puerto rico cause it was causing problems
-        let noAlaska = this.geoJSON.features.filter(d => d.properties.name !== "Alaska" || d.properties.name !== "Puerto Rico");
+        let noAlaska = this.geoJSON.features.filter(d => d.properties.name !== "Alaska" && d.properties.name !== "Puerto Rico");
 
         // draw state data
         d3.select("#states").selectAll("path")
             .data(noAlaska)
             .join("path")
-            .attr("state", d => d.properties.name)
             .attr("class", d => {
                 // if in selectedLocations -> class is selected
                 return this.globalApplicationState.selectedLocations.includes(d.properties.name) ? "state selected" : "state";
