@@ -4,6 +4,9 @@ async function loadData() {
     // https://github.com/topojson/us-atlas?tab=readme-ov-file
     const beeData = await d3.csv('https://raw.githubusercontent.com/pineappleboy23/DS_data/refs/heads/main/merged_df.csv');
 
+    // names of column to delete
+    const unneededColumns = ["table_x", "table_y", "Month"];
+
     // Date column to date
     beeData.forEach(d => {
         if (d["Date"]) {
@@ -17,8 +20,16 @@ async function loadData() {
                 d[newKey] = d[key];
                 delete d[key];
             }
+
+            // remove unwanted columns
+            if (unneededColumns.includes(newKey)) {
+                delete d[newKey];
+            }
         }
     });
+
+    console.log(Object.keys(beeData[0]))
+    console.log(1)
 
     const mapData = await d3.json('js/data/us-states.json');
 
