@@ -210,7 +210,7 @@ class LineChart {
 
         //create axis
         let xAxis = d3.axisBottom()
-            .tickFormat(d3.timeFormat("%Y-%m-%d"));;
+            .tickFormat(d3.timeFormat("%Y-%m-%d"));
 
         // assign the scale to the axis
         xAxis.scale(this.xscale);
@@ -218,8 +218,10 @@ class LineChart {
         // draw axis
         xg.call(xAxis)
             .selectAll("text") // get text labels
-            .attr("transform", "rotate(-25)") // rotate labels 
-            .style("text-anchor", "end"); // end of text is attached to point
+            .attr("transform", "rotate(-20)") // rotate labels 
+            .style("text-anchor", "end") // end of text is attached to point
+            .attr("font-size", Math.floor((this.height) * .02 + 5) + "px")  // scale font size
+
 
     }
 
