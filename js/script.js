@@ -143,6 +143,7 @@ function addFittedSVGs() {
     // Add g elements inside map SVG
     mapSVG.append("g").attr("id", "country-outline");
     mapSVG.append("g").attr("id", "states");
+    mapSVG.append("g").attr("id", "legend");
 
     // Append the line-chart SVG element
     const lineChartSVG = contentDiv.append("svg")

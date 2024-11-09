@@ -143,6 +143,8 @@ class MapVis {
     }
 
     drawMap() {
+        // delete old stuff
+        d3.select("#states").selectAll("*").remove();
 
         // draw state data
         d3.select("#states").selectAll("path")
@@ -166,7 +168,10 @@ class MapVis {
     }
 
     drawScale() {
-        const svg = d3.select("#map");
+        // delete old stuff
+        d3.select("#legend").selectAll("*").remove();
+
+        const svg = d3.select("#legend");
 
         const defs = svg.append("g");
 
