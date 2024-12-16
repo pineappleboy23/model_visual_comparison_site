@@ -54,14 +54,27 @@ class LineChart {
                 }
 
             })
-
             this.updateOverlay();
+
 
         });
 
         // clear overlay on mouse off
         d3.select("#line-chart").on("mouseout", event => {
-            // clear overlay
+
+            // get line chart
+            const lineChart = d3.select("#line-chart").node();
+            // the element the mouse is moving to
+            const relatedElement = event.relatedTarget; 
+
+
+            // The mouse is still within #line-chart or its children return
+            if (relatedElement && lineChart.contains(relatedElement)) {
+                console.log("Mouse moved within #line-chart or its children.");
+                return;
+            }
+
+            // else delete overlay
             d3.selectAll("#overlay").selectAll("*").remove();
         });
         
