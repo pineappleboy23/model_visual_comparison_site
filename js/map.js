@@ -86,7 +86,7 @@ class MapVis {
                 feature.properties.data = averageValueByState[state].mean;
             } else {
                 //if data missing
-                feature.properties.data = 0;
+                feature.properties.data = -1;
             }
         });
 
@@ -162,8 +162,12 @@ class MapVis {
             .attr("d", d => {
                 return this.path(d.geometry);
             })
-            //map the data value to a color
-            .style("fill", d => this.color(d.properties.data))
+            //map the data value to a color or grey if there is no data
+            .style("fill", d => {
+                return d.properties.data === -1
+                    ? "#030303" // Grey for -1
+                    : this.color(d.properties.data); // Default color mapping
+            })
             // click event listener
             .on("click", (event, d) => this.updateSelectedStates(this.globalApplicationState, d));
 
