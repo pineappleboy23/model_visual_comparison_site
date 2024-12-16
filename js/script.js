@@ -37,7 +37,8 @@ async function loadData() {
 // ******* STATE MANAGEMENT *******
 // communicate across the visualizations
 const globalApplicationState = {
-    selectedLocations: [],
+    //init to these 3 states to show state sekction tool
+    selectedLocations: ["California", "Texas", "Michigan"],
 
     beeData: null,
     mapData: null,
