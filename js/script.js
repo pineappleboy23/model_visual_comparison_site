@@ -220,19 +220,19 @@ function addFittedSVGs() {
 function addDropDownBox() {
     // data to bind to drop down selection
     const dataMaping = {
+        Starting_Colonies: 'Starting Colonies',
         Diseases: 'Diseases %',
         Pesticides: 'Pesticides %',
-        Other: 'Other %',
-        Unknown: 'Unknown %',
+        //Other: 'Other %',
+        //Unknown: 'Unknown %',
         Varroa_mites: 'Varroa Mites %',
         Other_pests_and_parasites: 'Other Pests and Parasites %',
-        Starting_Colonies: 'Starting Colonies',
         Max_Colonies: 'Max Colonies',
         Lost_colonies: 'Lost Colonies',
         Percent_Lost: 'Lost Colonies %',
         Added_colonies: 'Added Colonies',
-        Renovated_colonies: 'Renovated Colonies',
-        Percent_renovated: 'Percent Renovated %'
+        //Renovated_colonies: 'Renovated Colonies',
+        //Percent_renovated: 'Percent Renovated %'
     }
 
     // create drop down
