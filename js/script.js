@@ -221,12 +221,12 @@ function addDropDownBox() {
     // data to bind to drop down selection
     const dataMaping = {
         Starting_Colonies: 'Starting Colonies',
-        Diseases: 'Diseases %',
-        Pesticides: 'Pesticides %',
+        Diseases: 'Colonies Affected By Diseases %',
+        Pesticides: 'Colonies Affected By Pesticides %',
         //Other: 'Other %',
         //Unknown: 'Unknown %',
-        Varroa_mites: 'Varroa Mites %',
-        Other_pests_and_parasites: 'Other Pests and Parasites %',
+        Varroa_mites: 'Colonies Affected By Varroa Mites %',
+        Other_pests_and_parasites: 'Affected By Other Pests and Parasites %',
         Max_Colonies: 'Max Colonies',
         Lost_colonies: 'Lost Colonies',
         Percent_Lost: 'Lost Colonies %',
