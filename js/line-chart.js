@@ -59,6 +59,13 @@ class LineChart {
 
         });
 
+        // clear overlay on mouse off
+        d3.select("#line-chart").on("mouseout", event => {
+            // clear overlay
+            d3.selectAll("#overlay").selectAll("*").remove();
+        });
+        
+
     }
 
     findClosestEntry(data, targetDate) {
