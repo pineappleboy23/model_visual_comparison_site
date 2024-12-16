@@ -70,7 +70,6 @@ class LineChart {
 
             // The mouse is still within #line-chart or its children return
             if (relatedElement && lineChart.contains(relatedElement)) {
-                console.log("Mouse moved within #line-chart or its children.");
                 return;
             }
 
