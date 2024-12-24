@@ -37,14 +37,15 @@ async function loadData() {
 // ******* STATE MANAGEMENT *******
 // communicate across the visualizations
 const globalApplicationState = {
-    //init to these 3 states to show state sekction tool
-    selectedLocations: ["California", "Texas", "Michigan"],
+    
+    data: null,
+    trainData: null,
+    TestData: null,
 
-    beeData: null,
-    mapData: null,
+    testPercent: .15,
 
-    usMap: null,
-    lineChart: null,
+    trainLineChart: null,
+    testLineChart: null,
 
     // these are heights minus paddings
     svgWidth: null,
@@ -52,11 +53,20 @@ const globalApplicationState = {
     gradientWidth: null,
     padding: null,
 
-    yData: "Starting_Colonies"
+    // static, just the column name
+    yData: "Starting_Colonies",
+
+    // max dimension exponent  for adding synthetic data like x_1^2
+    maxSyntheticDimension: 1,
+
+    dimensionalityReduction: false,
+    // reduces x data to 3 parts
+    dimensionalityReductionAmount: 3
+
 };
 
 //******* SET UP FITTED HTML ITEMS *******
-addFittedSVGs();
+addFittedSVGs(); // calls addDropDownBox();
 
 
 //******* APPLICATION MOUNTING *******
